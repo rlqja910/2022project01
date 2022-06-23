@@ -1,9 +1,9 @@
 
 function commonAjaxCall(url, dataParam, callBackFunc, beforeFunc, afterFunc, successMsg, errorAfterFunc){
-	console.log('toyapp' + url);
+	console.log('app' + url);
 	$.ajax({
 		type : 'post',
-		url : 'http://localhost:8080/toyapp' + url,
+		url : 'http://localhost:8080/app' + url,
 		xhrFields : {
 			withCredentials : true,
 		},
@@ -46,29 +46,3 @@ function commonAjaxCall2(url,callBackFunc, beforeFunc, afterFunc, successMsg, er
 		},
 	});
 };
-
-function krGender(usGender){
-	if(usGender === 'male'){
-		return '남성';
-	}else if(usGender === 'femail'){
-		return '여성';
-	}else{
-		return '알수없음';
-	}
-}
-
-function ageRange(data){
-	if(data){
-		return data+'세';
-	}else{
-		return '알수없음';
-	}
-}
-
-function ageRange(data){
-	if(data){
-		return data.substr(0,2)+'월 '+data.substr(2,2)+'일';
-	}else{
-		return '알수없음';
-	}
-}

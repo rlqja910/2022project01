@@ -9,7 +9,8 @@ function p(){
 }
 
 function goJoin(){
-	console.log('join으로');
+	
+	location.href = '/app/register/join.do';
 }
 
 function emailLoginFn(){
@@ -25,4 +26,14 @@ function emailLoginFn(){
 
 function loginResult(result){
 	console.log(result);
+	
+	if(result.loginYn === 'Y'){
+		location.replace('/app/dashboard/home.do');
+	}else{
+		if(result.failResult === 'Y'){
+			alert('비밀번호를 5번이상 틀렸습니다. 관리자에게 문의하세요.');
+		}else{
+			alert('아이디와 비밀번호를 확인해주세요.');
+		}
+	}
 }
