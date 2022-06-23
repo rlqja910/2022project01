@@ -18,9 +18,11 @@ public class ResultCode {
 		return param;
 	}
 
-	public static Map<String, Object> failResult(Map<String, Object> param) {
+	public static Map<String, Object> failResult(Map<String, Object> param , String msg) {
 
 		ReturnDto returnDto = new ReturnDto();
+		
+		returnDto.setResultMsg(msg);
 
 		returnDto.setReturnCode(ReturnCode.FAIL);
 
