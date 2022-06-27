@@ -22,6 +22,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 		if (request.getSession().getAttribute("loginId") == null) {
 			log.info("로그인 안되어 있는 경우 home으로 이동한다.");
 			response.sendRedirect("/app/login/home.do");
+			return false;
 		}
 
 		return true;

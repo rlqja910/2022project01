@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toy.app.work.dashboard.mapper.DashboardMapper">
+
+	<insert id="insertWheatherContent"
+		parameterType="com.toy.app.work.dashboard.dto.WheatherDto">
+		INSERT INTO WHEATHER
+		(WHEATHER_ID, USER_ID, REG_DT,CONTENT)
+		VALUES(wheather_seq.NEXTVAL, #{userId}, CURRENT_TIMESTAMP, #{content})
+	</insert>
+
+</mapper>
