@@ -30,8 +30,8 @@ function commonAjaxCall(url, dataParam, callBackFunc, beforeFunc, afterFunc, suc
 
 function commonAjaxCall2(url,callBackFunc, beforeFunc, afterFunc, successMsg, errorAfterFunc){
 	$.ajax({
-		type : 'post',
-		url : url,
+		type : 'get',
+		url : 'http://localhost:8080/app' + url,
 		success : function(result){
 			callBackFunc ? callBackFunc(result) : '';
 		},
