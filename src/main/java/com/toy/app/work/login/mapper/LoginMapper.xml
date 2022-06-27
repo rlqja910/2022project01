@@ -13,6 +13,16 @@
 		WHERE user_id = #{userId}
 	</select>
 	
+	<!-- 계정 정보조회 -->
+	<select id="getUserInfo"
+		parameterType="com.toy.app.work.login.dto.UserLoginDto"
+		resultType="com.toy.app.work.login.dto.UserLoginDto">
+		SELECT athn_val as userPw, user_id, user_nm, tel_no, IP_ADR ,
+		LOGIN_FAIL_CNT , USER_ACC_STTUS_CD , LAST_LOGIN_DT ,REG_DT ,CHG_DT
+		FROM user_bas
+		WHERE user_id = #{userId}
+	</select>
+	
 	<!-- 로그인 실패횟수 증가 적재 -->
 	<update id="updateLoginFailCnt"
 		parameterType="com.toy.app.work.login.dto.UserLoginDto">
@@ -27,8 +37,8 @@
 		parameterType="com.toy.app.work.login.dto.UserLoginDto">
 		UPDATE USER_BAS
 		SET ip_adr = #{ipAdr}
-		, CHG_DT = CURRENT_TIMESTAM
-		, LAST_LOGIN_DT = CURRENT_TIMESTAM
+		, CHG_DT = CURRENT_TIMESTAMP
+		, LAST_LOGIN_DT = CURRENT_TIMESTAMP
 		, LOGIN_FAIL_CNT = 0
 		WHERE user_id = #{userId}
 	</update>

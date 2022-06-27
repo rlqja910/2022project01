@@ -39,11 +39,7 @@ public class LoginServiceImpl implements LoginService {
 		log.info(userLoginDto.toString());
 		log.info(userInfo.toString());
 
-		log.info(SecretPwHelper.encryptPw("kkb509@naver.com"));
-		log.info(encrytPw);
-
 		String decryptPw = SecretPwHelper.decryptPw(encrytPw);
-		log.info(decryptPw);
 
 		if (!(userInfo.getLoginFailCnt() >= 5) && userLoginDto.getUserPw().equals(decryptPw)) {
 			// 로그인 성공, 접속성공 정보 적재
@@ -79,5 +75,13 @@ public class LoginServiceImpl implements LoginService {
 		log.info("[OUT]LoginServiceImpl doLogin()");
 
 		return requestMap;
+	}
+
+	@Override
+	public UserLoginDto getUserInfo(UserLoginDto userLoginDto) {
+		
+		UserLoginDto userInfo = loginMapper.getUserInfo(userLoginDto);
+		
+		return userInfo;
 	}
 }

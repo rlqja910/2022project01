@@ -27,14 +27,16 @@ public class LoginController {
 
 	@RequestMapping(value = "/home.do")
 	public String goHome() {
-		log.info("=로그인 페이지 접속=");
+		log.info("[IN]LoginController goHome");
+
+		log.info("[OUT]LoginController goHomegoHome");
 
 		return "login";
 	}
 
 	@RequestMapping(value = "/in.json")
 	public @ResponseBody Map<String, Object> in(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request) {
-		log.info("[IN]LoginController in()");
+		log.info("[IN]LoginController in");
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -42,13 +44,23 @@ public class LoginController {
 
 		ResultCode.successResult(resultMap);
 
+		log.info("[OUT]LoginController in");
+
 		return resultMap;
 	}
 
 	@RequestMapping(value = "/out.json")
-	public String out() {
-		log.info("[IN]LoginController out()");
+	public @ResponseBody Map<String, Object> out(HttpServletRequest request) {
+		log.info("[IN]LoginController out");
 
-		return "login";
+		log.info("세션을 제거하였습니다.");
+
+		request.getSession().invalidate();
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		log.info("[OUT]LoginController out");
+
+		return resultMap;
 	}
 }

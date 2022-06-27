@@ -27,14 +27,14 @@ public class RegisterController {
 
 	@RequestMapping(value = "join.do")
 	public String goDashboard() {
-		log.info("=회원가입 접속=");
+		log.info("[IN]RegisterController goDashboard");
 
 		return "register";
 	}
 	
 	@RequestMapping(value = "/insertUser.json")
-	public @ResponseBody Map<String, Object> in(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request) {
-		log.info("[IN]RegisterController in()");
+	public @ResponseBody Map<String, Object> insertUser(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request) {
+		log.info("[IN]RegisterController insertUser");
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -51,7 +51,7 @@ public class RegisterController {
 			resultMap.put("registSuccess", "N");
 		}
 		
-		log.info("[OUT]RegisterController in()");
+		log.info("[OUT]RegisterController insertUser");
 
 		return resultMap;
 	}
