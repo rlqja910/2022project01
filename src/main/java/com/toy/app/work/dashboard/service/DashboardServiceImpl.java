@@ -1,8 +1,11 @@
 package com.toy.app.work.dashboard.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.toy.app.work.dashboard.dto.AreaCodeDto;
 import com.toy.app.work.dashboard.dto.WheatherDto;
 import com.toy.app.work.dashboard.mapper.DashboardMapper;
 
@@ -24,5 +27,11 @@ public class DashboardServiceImpl implements DashboardService {
 			log.info("날씨정보를 적재하였습니다.");
 		}
 		log.info("[OUT]DashboardServiceImpl insertWheatherContent");
+	}
+
+	@Override
+	public List<AreaCodeDto> getAreaCode() {
+		
+		return dashboardMapper.getAreaCode();
 	}
 }

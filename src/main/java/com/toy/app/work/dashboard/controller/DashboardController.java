@@ -21,6 +21,10 @@ import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.login.service.LoginService;
 
 import lombok.extern.slf4j.Slf4j;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Slf4j
 @Controller
@@ -37,9 +41,33 @@ public class DashboardController {
 	public String goDashboard(HttpServletRequest request, Model model) {
 		log.info("[IN]DashboardController goDashboard");
 
+		// 문자 api
+//		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSIT9LPUEM462LU",
+//				"2XZLOQOJKFHAQYY2HRUTSL49TONAJSFW", "https://api.solapi.com");
+//		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
+//		Message message = new Message();
+//		message.setFrom("01088981118");
+//		message.setTo("01036887858");
+//		message.setText("상갈동 날씨 크롤링 테스트문자 발송");
+//
+//		try {
+//			// send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
+//			messageService.send(message);
+//		} catch (NurigoMessageNotReceivedException exception) {
+//			// 발송에 실패한 메시지 목록을 확인할 수 있습니다!
+//			System.out.println(exception.getFailedMessageList());
+//			System.out.println(exception.getMessage());
+//		} catch (Exception exception) {
+//			System.out.println(exception.getMessage());
+//		}
+
 		// 상갈동 날씨 크롤링
 		String URL = "https://weather.naver.com/today/02463103";
+
+		// 정자동 날씨 크롤링
+		String URL2 = "https://weather.naver.com/today/02135103";
 		Document doc;
+
 		try {
 			doc = Jsoup.connect(URL).get();
 			Elements elem = doc.select(".weather_now");
@@ -56,7 +84,7 @@ public class DashboardController {
 			WheatherDto wheatherDto = new WheatherDto();
 
 			wheatherDto.setUserId((String) request.getSession().getAttribute("loginId"));
-			wheatherDto.setContent(wheather_content);
+			wheatherDto.setContent("기흥구 상갈동 " + wheather_content);
 
 			dashboardService.insertWheatherContent(wheatherDto);
 
@@ -66,6 +94,37 @@ public class DashboardController {
 
 			model.addAttribute("weather", str);
 			model.addAttribute("life", str2);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			doc = Jsoup.connect(URL2).get();
+			Elements elem = doc.select(".weather_now");
+			String[] str = elem.text().split(" ");
+			Elements elem2 = doc.select(".chart_list");
+			String[] str2 = elem2.text().split(" ");
+
+			String wheather_content = "";
+
+			for (String a : str) {
+				wheather_content += a + " ";
+			}
+
+			WheatherDto wheatherDto = new WheatherDto();
+
+			wheatherDto.setUserId((String) request.getSession().getAttribute("loginId"));
+			wheatherDto.setContent("분당구 정자동 " + wheather_content);
+
+			dashboardService.insertWheatherContent(wheatherDto);
+
+			for (String a : str2) {
+				System.out.println(a);
+			}
+
+			model.addAttribute("weather2", str);
+			model.addAttribute("life2", str2);
 
 		} catch (IOException e) {
 			e.printStackTrace();

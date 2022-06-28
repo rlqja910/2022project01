@@ -7,6 +7,8 @@
 	<!-- JQUERY JS -->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/sweet-alert.js"></script>
+    
+<script src="../assets/js/confetti_v2.js"></script>
 
     <!--- FONT-ICONS CSS -->
     <link href="../assets/css/icons.css" rel="stylesheet" />
@@ -15,8 +17,11 @@
     
     
     <script th:inline="javascript">
-     	wheather = /*[[${weather}]]*/ null;
-    	life = /*[[${life}]]*/ null;
+    weather = /*[[${weather}]]*/ null;
+	life = /*[[${life}]]*/ null;
+	
+	weather2 = /*[[${weather2}]]*/ null;
+	life2 = /*[[${life2}]]*/ null;
     </script>
 
 <head>
@@ -54,6 +59,15 @@
 </head>
 
 <body class="app sidebar-mini ltr light-mode">
+
+<!-- 꽃가루 -->
+<div class="buttonContainer">
+	<button style="display: none;" class="canvasBtn" id="stopButton">Stop Confetti</button>
+	<button style="display: none;" class="canvasBtn" id="startButton">Drop Confetti</button>	
+</div>
+
+<canvas style="z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);" id="canvas"></canvas>
+<!-- /꽃가루 -->
 
     <!-- GLOBAL-LOADER -->
     <div id="global-loader">
@@ -433,16 +447,16 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-4">
                                         <div class="card overflow-hidden">
                                             <div class="card-body" style="height:200px;">
                                                 <div class="d-flex">
                                                     <div class="mt-2">
-                                                        <h5 class="" id = "now_wheather">기흥구 상갈동</h5><br>
+                                                        <h5 class="" id = "now_weather">기흥구 상갈동</h5><br>
                                                         <h2 class="mb-0 number-font" id="temper">44,278</h2><br>
                                                         <h5 class="mb-0 number-font" id = "temper2">기흥구 상갈동</h5>
                                                     </div>
-                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="wheatherImg" style="width: 90px;" src="../assets/images/wheather/windy.png"></div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="weatherImg" style="width: 90px;" src="../assets/images/weather/windy.png"></div>
                                                     <div class="ms-auto" style="display: none;">
                                                         <div class="chart-wrapper mt-1">
                                                             <canvas id="saleschart"
@@ -464,7 +478,7 @@
                                                         <h5 class="">자외선 지수</h5><br>
                                                         <h2 class="mb-0 number-font" id="card1">67,987</h2>
                                                     </div>
-                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/wheather/uv.png"></div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/weather/uv.png"></div>
                                                     <div class="ms-auto" style="display: none;">
                                                         <div class="chart-wrapper mt-1">
                                                             <canvas id="leadschart"
@@ -486,7 +500,7 @@
                                                         <h5 class="">식중독 지수</h5><br>
                                                         <h2 class="mb-0 number-font" id="card2">$76,965</h2>
                                                     </div>
-                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/wheather/stomache.png"></div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/weather/stomache.png"></div>
                                                     <div class="ms-auto" style="display: none;">
                                                         <div class="chart-wrapper mt-1">
                                                             <canvas id="profitchart"
@@ -508,7 +522,7 @@
                                                         <h5 class="">천식폐질환 지수</h5><br>
                                                         <h2 class="mb-0 number-font" id="card3">$59,765</h2>
                                                     </div>
-                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 100px;" src="../assets/images/wheather/lung.png"></div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 100px;" src="../assets/images/weather/lung.png"></div>
                                                     <div class="ms-auto" style="display: none;">
                                                         <div class="chart-wrapper mt-1">
                                                             <canvas id="costchart"
@@ -532,7 +546,127 @@
                                                         <h5 class="">뇌졸증가능 지수</h5><br>
                                                         <h2 class="mb-0 number-font" id="card4">$59,765</h2>
                                                     </div>
-                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/wheather/breakbrain.png"></div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/weather/breakbrain.png"></div>
+                                                    <div class="ms-auto" style="display: none;">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="costchart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <!--  <span class="text-muted fs-12"><span class="text-warning"><i
+                                                            class="fe fe-arrow-up-circle text-warning"></i> 0.6%</span>
+                                                    Last year</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-4">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body" style="height:200px;">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h5 class="" id = "now_weather">분당구 정자동</h5><br>
+                                                        <h2 class="mb-0 number-font" id="temper3">44,278</h2><br>
+                                                        <h5 class="mb-0 number-font" id = "temper4">분당구 정자동</h5>
+                                                    </div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="weatherImg2" style="width: 90px;" src="../assets/images/weather/windy.png"></div>
+                                                    <div class="ms-auto" style="display: none;">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="saleschart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <span class="text-muted fs-12"><span class="text-secondary"><i
+                                                            class="fe fe-arrow-up-circle  text-secondary"></i> 5%</span>
+                                                    Last week</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-2">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body" style="height:200px;">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h5 class="">자외선 지수</h5><br>
+                                                        <h2 class="mb-0 number-font" id="card5">67,987</h2>
+                                                    </div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/weather/uv.png"></div>
+                                                    <div class="ms-auto" style="display: none;">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="leadschart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <span class="text-muted fs-12"><span class="text-pink"><i
+                                                            class="fe fe-arrow-down-circle text-pink"></i> 0.75%</span>
+                                                    Last 6 days</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-2">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body" style="height:200px;">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h5 class="">식중독 지수</h5><br>
+                                                        <h2 class="mb-0 number-font" id="card6">$76,965</h2>
+                                                    </div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/weather/stomache.png"></div>
+                                                    <div class="ms-auto" style="display: none;">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="profitchart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               <!--  <span class="text-muted fs-12"><span class="text-green"><i
+                                                            class="fe fe-arrow-up-circle text-green"></i> 0.9%</span>
+                                                    Last 9 days</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-2">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body" style="height:200px;">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h5 class="">천식폐질환 지수</h5><br>
+                                                        <h2 class="mb-0 number-font" id="card7">$59,765</h2>
+                                                    </div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 100px;" src="../assets/images/weather/lung.png"></div>
+                                                    <div class="ms-auto" style="display: none;">
+                                                        <div class="chart-wrapper mt-1">
+                                                            <canvas id="costchart"
+                                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <span class="text-muted fs-12"><span class="text-warning"><i
+                                                            class="fe fe-arrow-up-circle text-warning"></i> 0.6%</span>
+                                                    Last year</span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input style="display: none;" type="button" class="btn btn-warning mt-2" value="Warning alert" id="click1">
+                                    <input style="display: none;" type="button" class="btn btn-warning mt-2" value="Warning alert" id="click2">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-2">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body" style="height:200px;">
+                                                <div class="d-flex">
+                                                    <div class="mt-2">
+                                                        <h5 class="">뇌졸증가능 지수</h5><br>
+                                                        <h2 class="mb-0 number-font" id="card8">$59,765</h2>
+                                                    </div>
+                                                    <div style="margin-top: 20px;margin-left: 20px;"><br><img id="" style="width: 90px;" src="../assets/images/weather/breakbrain.png"></div>
                                                     <div class="ms-auto" style="display: none;">
                                                         <div class="chart-wrapper mt-1">
                                                             <canvas id="costchart"

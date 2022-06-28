@@ -26,10 +26,15 @@ public class LoginController {
 	private LoginService loginService;
 
 	@RequestMapping(value = "/home.do")
-	public String goHome() {
+	public String goHome(HttpServletRequest request) {
 		log.info("[IN]LoginController goHome");
+		
+		if((String)request.getSession().getAttribute("loginId") != null) {
+			log.info("대쉬보드로 이동");
+			return "redirect:/app/dashboard/home.do";
+		}
 
-		log.info("[OUT]LoginController goHomegoHome");
+		log.info("[OUT]LoginController goHome");
 
 		return "login";
 	}

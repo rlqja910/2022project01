@@ -26,8 +26,15 @@ public class RegisterController {
 	private RegisterService registerService;
 
 	@RequestMapping(value = "join.do")
-	public String goDashboard() {
+	public String goDashboard(HttpServletRequest request) {
 		log.info("[IN]RegisterController goDashboard");
+		
+		if((String)request.getSession().getAttribute("loginId") != null) {
+			log.info("대쉬보드로 이동");
+			return "redirect:/app/dashboard/home.do";
+		}
+
+		log.info("[OUT]RegisterController goDashboard");
 
 		return "register";
 	}
