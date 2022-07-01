@@ -41,26 +41,6 @@ public class DashboardController {
 	public String goDashboard(HttpServletRequest request, Model model) {
 		log.info("[IN]DashboardController goDashboard");
 
-		// 문자 api
-//		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSIT9LPUEM462LU",
-//				"2XZLOQOJKFHAQYY2HRUTSL49TONAJSFW", "https://api.solapi.com");
-//		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
-//		Message message = new Message();
-//		message.setFrom("01088981118");
-//		message.setTo("01036887858");
-//		message.setText("상갈동 날씨 크롤링 테스트문자 발송");
-//
-//		try {
-//			// send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
-//			messageService.send(message);
-//		} catch (NurigoMessageNotReceivedException exception) {
-//			// 발송에 실패한 메시지 목록을 확인할 수 있습니다!
-//			System.out.println(exception.getFailedMessageList());
-//			System.out.println(exception.getMessage());
-//		} catch (Exception exception) {
-//			System.out.println(exception.getMessage());
-//		}
-
 		// 상갈동 날씨 크롤링
 		String URL = "https://weather.naver.com/today/02463103";
 
@@ -151,6 +131,40 @@ public class DashboardController {
 		resultMap.put("userInfo", userLoginDto2);
 
 		log.info("[OUT]DashboardController getTopmenuData");
+
+		return resultMap;
+	}
+
+	@RequestMapping(value = "sendSmsWeather.json")
+	public @ResponseBody Map<String, Object> sendSmsWeather(HttpServletRequest request) {
+		log.info("=[IN]DashboardController sendSmsWeather");
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		// 문자 api
+		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSIT9LPUEM462LU",
+				"2XZLOQOJKFHAQYY2HRUTSL49TONAJSFW", "https://api.solapi.com");
+		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
+		Message message = new Message();
+		message.setFrom("01088981118");
+		message.setTo("01088981118");
+		message.setText("상갈동 날씨 크롤링 테스트문자 발송");
+
+		try {
+			// send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
+			messageService.send(message);
+			resultMap.put("sendResult", "Y");
+		} catch (NurigoMessageNotReceivedException exception) {
+			// 발송에 실패한 메시지 목록을 확인할 수 있습니다!
+			System.out.println(exception.getFailedMessageList());
+			System.out.println(exception.getMessage());
+			resultMap.put("sendResult", "N");
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
+			resultMap.put("sendResult", "N");
+		}
+
+		log.info("[OUT]DashboardController sendSmsWeather");
 
 		return resultMap;
 	}

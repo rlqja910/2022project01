@@ -33,10 +33,20 @@ $(document).on("click", "#click1", function(e) {
 	    });
 	    
 $(document).on("click", "#click2", function(e) {
-	console.log('123');
         $('body').removeClass('timer-alert');
 	        swal({
 	            title: "날씨 눈",
+	            text: "오늘은 운전에 유의하세요.",
+	            type: "warning",
+	            showCancelButton: false,
+	            confirmButtonText: '감사합니다',
+	        });
+	    });
+	    
+$(document).on("click", "#click3", function(e) {
+        $('body').removeClass('timer-alert');
+	        swal({
+	            title: "날씨 비",
 	            text: "오늘은 운전에 유의하세요.",
 	            type: "warning",
 	            showCancelButton: false,
@@ -64,7 +74,7 @@ function setNowweather(){
 		$('#weatherImg').eq(0).prop("alt",'구름많음');
 	}else if(weather[2] === '비'){
 		$('#weatherImg').eq(0).prop("src","../assets/images/weather/rainny.png");
-		$('#click2').trigger('click');
+		$('#click3').trigger('click');
 		$('#weatherImg').eq(0).prop("title",'비');
 		$('#weatherImg').eq(0).prop("alt",'비');
 	}else if(weather[2] === '눈'){
@@ -93,7 +103,7 @@ function setNowweather(){
 		$('#weatherImg2').eq(0).prop("alt",'구름많음');
 	}else if(weather2[2] === '비'){
 		$('#weatherImg2').eq(0).prop("src","../assets/images/weather/rainny.png");
-		$('#click2').trigger('click');
+		$('#click3').trigger('click');
 		$('#weatherImg2').eq(0).prop("title",'비');
 		$('#weatherImg2').eq(0).prop("alt",'비');
 	}else if(weather2[2] === '눈'){
