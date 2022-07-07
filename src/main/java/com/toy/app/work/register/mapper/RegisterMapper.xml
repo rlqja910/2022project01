@@ -7,7 +7,7 @@
 	<!-- 계정 생성 -->
 	<select id="insertUser"
 		parameterType="com.toy.app.work.login.dto.UserLoginDto">
-		INSERT INTO USER_BAS
+		INSERT INTO TOYADM.USER_BAS
 		(USER_ID, USER_NM, TEL_NO, IP_ADR, LOGIN_FAIL_CNT, AUTH_ID, ATHN_VAL,
 		USER_ACC_STTUS_CD, LAST_LOGIN_DT, REG_DT, CHG_DT)
 		VALUES(#{userId}, #{userNm},NULL, #{ipAdr}, 0, NULL,
