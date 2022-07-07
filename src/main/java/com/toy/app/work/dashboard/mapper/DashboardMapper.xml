@@ -6,7 +6,7 @@
 	<insert id="insertWheatherContent"
 		parameterType="com.toy.app.work.dashboard.dto.WheatherDto">
 		INSERT INTO TOYADM.WHEATHER
-		(WHEATHER_ID, USER_ID, REG_DT,CONTENT)
+		(TOYADM.WHEATHER_ID, USER_ID, REG_DT,CONTENT)
 		VALUES(wheather_seq.NEXTVAL, #{userId}, CURRENT_TIMESTAMP, #{content})
 	</insert>
 	
