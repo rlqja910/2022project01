@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toy.app.work.login.mapper.LoginMapper">
+
+	<!-- 계정 확인 -->
+	<select id="doLogin"
+		parameterType="com.toy.app.work.login.dto.UserLoginDto"
+		resultType="com.toy.app.work.login.dto.UserLoginDto">
+		SELECT athn_val as userPw, user_id, user_nm, tel_no, IP_ADR ,
+		LOGIN_FAIL_CNT , USER_ACC_STTUS_CD , LAST_LOGIN_DT ,REG_DT ,CHG_DT
+		FROM TOYADM.user_bas
+		WHERE user_id = #{userId}
+	</select>
+	
+	<!-- 계정 정보조회 -->
+	<select id="getUserInfo"
+		parameterType="com.toy.app.work.login.dto.UserLoginDto"
+		resultType="com.toy.app.work.login.dto.UserLoginDto">
+		SELECT athn_val as userPw, user_id, user_nm, tel_no, IP_ADR ,
+		LOGIN_FAIL_CNT , USER_ACC_STTUS_CD , LAST_LOGIN_DT ,REG_DT ,CHG_DT
+		FROM TOYADM.user_bas
+		WHERE user_id = #{userId}
+	</select>
+	
+	<!-- 로그인 실패횟수 증가 적재 -->
+	<update id="updateLoginFailCnt"
+		parameterType="com.toy.app.work.login.dto.UserLoginDto">
+		UPDATE TOYADM.USER_BAS
+		SET LOGIN_FAIL_CNT = #{loginFailCnt}
+		, CHG_DT = CURRENT_TIMESTAMP
+		WHERE user_id = #{userId}
+	</update>
+	
+	<!-- 로그인 성공 정보 적재 -->
+	<update id="updateLoginSuccess"
+		parameterType="com.toy.app.work.login.dto.UserLoginDto">
+		UPDATE TOYADM.USER_BAS
+		SET ip_adr = #{ipAdr}
+		, CHG_DT = CURRENT_TIMESTAMP
+		, LAST_LOGIN_DT = CURRENT_TIMESTAMP
+		, LOGIN_FAIL_CNT = 0
+		WHERE user_id = #{userId}
+	</update>
+</mapper>

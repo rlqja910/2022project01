@@ -9,7 +9,7 @@
 		resultType="com.toy.app.work.login.dto.UserLoginDto">
 		SELECT athn_val as userPw, user_id, user_nm, tel_no, IP_ADR ,
 		LOGIN_FAIL_CNT , USER_ACC_STTUS_CD , LAST_LOGIN_DT ,REG_DT ,CHG_DT
-		FROM TOYADM.user_bas
+		FROM user_bas
 		WHERE user_id = #{userId}
 	</select>
 	
@@ -19,14 +19,14 @@
 		resultType="com.toy.app.work.login.dto.UserLoginDto">
 		SELECT athn_val as userPw, user_id, user_nm, tel_no, IP_ADR ,
 		LOGIN_FAIL_CNT , USER_ACC_STTUS_CD , LAST_LOGIN_DT ,REG_DT ,CHG_DT
-		FROM TOYADM.user_bas
+		FROM user_bas
 		WHERE user_id = #{userId}
 	</select>
 	
 	<!-- 로그인 실패횟수 증가 적재 -->
 	<update id="updateLoginFailCnt"
 		parameterType="com.toy.app.work.login.dto.UserLoginDto">
-		UPDATE TOYADM.USER_BAS
+		UPDATE USER_BAS
 		SET LOGIN_FAIL_CNT = #{loginFailCnt}
 		, CHG_DT = CURRENT_TIMESTAMP
 		WHERE user_id = #{userId}
@@ -35,7 +35,7 @@
 	<!-- 로그인 성공 정보 적재 -->
 	<update id="updateLoginSuccess"
 		parameterType="com.toy.app.work.login.dto.UserLoginDto">
-		UPDATE TOYADM.USER_BAS
+		UPDATE USER_BAS
 		SET ip_adr = #{ipAdr}
 		, CHG_DT = CURRENT_TIMESTAMP
 		, LAST_LOGIN_DT = CURRENT_TIMESTAMP

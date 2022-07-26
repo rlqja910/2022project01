@@ -5,14 +5,14 @@
 
 	<insert id="insertWheatherContent"
 		parameterType="com.toy.app.work.dashboard.dto.WheatherDto">
-		INSERT INTO TOYADM.WHEATHER
-		(TOYADM.WHEATHER_ID, USER_ID, REG_DT,CONTENT)
-		VALUES(wheather_seq.NEXTVAL, #{userId}, CURRENT_TIMESTAMP, #{content})
+		INSERT INTO WHEATHER
+		(WHEATHER_ID, USER_ID, REG_DT,CONTENT)
+		VALUES(nextval('wheather_seq'), #{userId}, CURRENT_TIMESTAMP, #{content})
 	</insert>
 	
 	<select id="getAreaCode"
 		resultType ="com.toy.app.work.dashboard.dto.AreaCodeDto">
-		SELECT area_id, area_nm FROM TOYADM.areaCode
+		SELECT area_id, area_nm FROM areaCode
 	</select>
 
 </mapper>
