@@ -1,3 +1,3 @@
 # 2022project01
 2022년 토이프로젝트
-#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
+#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
