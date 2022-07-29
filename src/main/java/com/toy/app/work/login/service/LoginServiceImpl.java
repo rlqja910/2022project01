@@ -24,6 +24,8 @@ public class LoginServiceImpl implements LoginService {
 			HttpServletRequest request) {
 
 		log.info("[IN]LoginServiceImpl doLogin()");
+		
+		System.out.println(userLoginDto.toString());
 
 		UserLoginDto userInfo = loginMapper.doLogin(userLoginDto);
 
