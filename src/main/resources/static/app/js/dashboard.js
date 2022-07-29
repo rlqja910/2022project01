@@ -50,7 +50,7 @@ $(document).on("click", "#click3", function(e) {
 	            text: "오늘은 운전에 유의하세요.",
 	            type: "warning",
 	            showCancelButton: false,
-	            confirmButtonText: '감사합니다',
+	            confirmButtonText: '감사합니다',  
 	        });
 	    });
 
