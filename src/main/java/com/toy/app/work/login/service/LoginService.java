@@ -12,4 +12,6 @@ public interface LoginService {
 			HttpServletRequest request);
 
 	public UserLoginDto getUserInfo(UserLoginDto userLoginDto);
+
+	public String getNotice();
 }

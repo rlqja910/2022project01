@@ -15,4 +15,6 @@ public interface LoginMapper {
 
 	public int updateLoginSuccess(UserLoginDto userInfo);
 
+	public String getNotice();
+
 }

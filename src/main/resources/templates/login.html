@@ -36,6 +36,10 @@
     <!-- COLOR SKIN CSS -->
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="../assets/colors/color1.css" />
 
+	<script th:inline="javascript">
+	    noticeTxt = /*[[${noticeTxt}]]*/ null;
+    </script>
+    
 </head>
 
 <body class="app sidebar-mini ltr">
@@ -66,7 +70,7 @@
                 <div class="bird-container4">
                 <div class="bird4"></div>
                 </div>
-                 
+                 <button class="btn btn-success bg-success-gradient mt-3 noticeModal" style="display: none;" data-bs-toggle="modal" data-bs-target="#largemodal">large Modal</button>
                     <div class="text-center">
                         <img src="../assets/images/brand/logo-white.png" class="header-brand-img" alt="">
                     </div>
@@ -75,6 +79,7 @@
                 <div class="container-login100">
                     <div style="z-index:unset;" class="wrap-login100 p-6">
                         <form class="login100-form validate-form">
+                        
                             <span class="login100-form-title pb-5">
                                 Login
                             </span>
@@ -169,6 +174,26 @@
     </div>
     <!-- BACKGROUND-IMAGE CLOSED -->
 
+	<!-- Modal -->
+    <div class="modal fade" id="largemodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">공지사항</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+                </div>
+                <div class="modal-body">
+					<div id = "noticeContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- JQUERY JS -->
     <script src="../assets/js/jquery.min.js"></script>
 

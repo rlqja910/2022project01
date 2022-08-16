@@ -13,6 +13,13 @@
 		WHERE user_id = #{userId}
 	</select>
 	
+	<!-- 공지사항 확인 -->
+	<select id="getNotice" resultType="string">
+		select content from notice_txt
+		order by reg_dt desc
+		limit 1
+	</select>
+	
 	<!-- 계정 정보조회 -->
 	<select id="getUserInfo"
 		parameterType="com.toy.app.work.login.dto.UserLoginDto"

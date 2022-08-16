@@ -2,6 +2,10 @@ $(document).ready(function(){
 	
 	console.log('==login.js==');
 	
+	$('#noticeContent').html(noticeTxt);
+	
+	$('.noticeModal').click();
+	
 });
 
 function p(){

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,13 +30,20 @@ public class LoginController {
 
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	@ApiOperation(value = "로그인 화면")
-	public String goHome(HttpServletRequest request) {
+	public String goHome(HttpServletRequest request, Model model) {
 		log.info("[IN]LoginController goHome");
 		
 		if((String)request.getSession().getAttribute("loginId") != null) {
 			log.info("대쉬보드로 이동");
 			return "redirect:/app/dashboard/home.do";
 		}
+		
+		//공지사항 조회
+		String notice = loginService.getNotice();
+		
+		log.info("notice : {}",notice);
+		
+		model.addAttribute("noticeTxt", notice);
 
 		log.info("[OUT]LoginController goHome");
 
@@ -58,7 +66,7 @@ public class LoginController {
 		return resultMap;
 	}
 
-	@RequestMapping(value = "/out.json", method = RequestMethod.GET)
+	@RequestMapping(value = "/out.json", method = RequestMethod.POST)
 	@ApiOperation(value = "로그아웃")
 	public @ResponseBody Map<String, Object> out(HttpServletRequest request) {
 		log.info("[IN]LoginController out");

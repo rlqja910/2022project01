@@ -86,4 +86,10 @@ public class LoginServiceImpl implements LoginService {
 		
 		return userInfo;
 	}
+
+	@Override
+	public String getNotice() {
+		// TODO Auto-generated method stub
+		return loginMapper.getNotice();
+	}
 }
