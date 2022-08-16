@@ -43,6 +43,10 @@ public class LoginController {
 		
 		log.info("notice : {}",notice);
 		
+		if(notice == null) {
+			notice = "최근 공지사항이 없습니다.";
+		}
+		
 		model.addAttribute("noticeTxt", notice);
 
 		log.info("[OUT]LoginController goHome");
