@@ -46,10 +46,10 @@ function registBtn(){
 		return;
 	}
 	//비밀번호에 특수문자 체크
-	else if(specialStrChk.test(userPw)){
-		alert('비밀번호에 특수문자를 사용할 수 없습니다 (영문,숫자 가능).');
-		return;
-	}
+	//else if(specialStrChk.test(userPw)){
+	//	alert('비밀번호에 특수문자를 사용할 수 없습니다 (영문,숫자 가능).');
+	//	return;
+	//}
 	//개인정보 동의 체크
 	else if(!$('#agreeCheck').is(":checked")){
 		alert('개인정보 수집에 동의해주세요.');
@@ -58,9 +58,11 @@ function registBtn(){
 	
 	console.log('회원가입 서비스 시작 - ajax');
 	
+	console.log(SHA256(userPw));
+	
 	var param = {
 		userId : userId,
-		userPw : userPw,
+		userPw : SHA256(userPw),
 		userNm : userNm,
 	};
 	commonAjaxCall('/register/insertUser.json',param, registerResult);

@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toy.app.core.util.ResultCode;
 import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.register.service.RegisterService;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,7 +27,8 @@ public class RegisterController {
 	@Autowired
 	private RegisterService registerService;
 
-	@RequestMapping(value = "join.do")
+	@RequestMapping(value = "join.do", method = RequestMethod.GET)
+	@ApiOperation(value = "가입 화면")
 	public String goDashboard(HttpServletRequest request) {
 		log.info("[IN]RegisterController goDashboard");
 		
@@ -39,7 +42,8 @@ public class RegisterController {
 		return "register";
 	}
 	
-	@RequestMapping(value = "/insertUser.json")
+	@RequestMapping(value = "/insertUser.json", method = RequestMethod.POST)
+	@ApiOperation(value = "회원가입")
 	public @ResponseBody Map<String, Object> insertUser(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request) {
 		log.info("[IN]RegisterController insertUser");
 

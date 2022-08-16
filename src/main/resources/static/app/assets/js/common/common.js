@@ -3,7 +3,7 @@ function commonAjaxCall(url, dataParam, callBackFunc, beforeFunc, afterFunc, suc
 	console.log('app' + url);
 	$.ajax({
 		type : 'post',
-		url : 'http://192.168.174.102:8080/app' + url,
+		url : 'http://localhost:8080/app' + url,
 		xhrFields : {
 			withCredentials : true,
 		},
@@ -31,7 +31,7 @@ function commonAjaxCall(url, dataParam, callBackFunc, beforeFunc, afterFunc, suc
 function commonAjaxCall2(url,callBackFunc, beforeFunc, afterFunc, successMsg, errorAfterFunc){
 	$.ajax({
 		type : 'get',
-		url : 'http://192.168.174.102:8080/app' + url,
+		url : 'http://localhost:8080/app' + url,
 		success : function(result){
 			callBackFunc ? callBackFunc(result) : '';
 		},

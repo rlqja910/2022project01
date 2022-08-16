@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toy.app.work.dashboard.dto.WheatherDto;
@@ -20,6 +21,7 @@ import com.toy.app.work.dashboard.service.DashboardService;
 import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.login.service.LoginService;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
@@ -37,8 +39,9 @@ public class DashboardController {
 	@Autowired
 	private DashboardService dashboardService;
 
-	@RequestMapping(value = "home.do")
-	public String goDashboard(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "home.do", method = RequestMethod.GET)
+	@ApiOperation(value = "홈 (대시보드)")
+	public String goDashboard(HttpServletRequest request, Model model ) {
 		log.info("[IN]DashboardController goDashboard");
 
 		// 상갈동 날씨 크롤링
@@ -115,7 +118,8 @@ public class DashboardController {
 		return "dashboard";
 	}
 
-	@RequestMapping(value = "topmenuData.json")
+	@RequestMapping(value = "topmenuData.json", method = RequestMethod.POST)
+	@ApiOperation(value = "권한적용 메뉴 조회")
 	public @ResponseBody Map<String, Object> getTopmenuData(HttpServletRequest request) {
 		log.info("=[IN]DashboardController getTopmenuData");
 
@@ -135,7 +139,8 @@ public class DashboardController {
 		return resultMap;
 	}
 
-	@RequestMapping(value = "sendSmsWeather.json")
+	@RequestMapping(value = "sendSmsWeather.json", method = RequestMethod.GET)
+	@ApiOperation(value = "날씨 정보 문자발송")
 	public @ResponseBody Map<String, Object> sendSmsWeather(HttpServletRequest request) {
 		log.info("=[IN]DashboardController sendSmsWeather");
 

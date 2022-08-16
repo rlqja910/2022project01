@@ -16,9 +16,11 @@ function goJoin(){
 function emailLoginFn(){
 	var param;
 	
+	console.log(SHA256($('#userPw').val()));
+	
 	param = {
 		userId : $('#userId').val(),
-		userPw : $('#userPw').val(),
+		userPw : SHA256($('#userPw').val()),
 	}
 	
 	commonAjaxCall('/login/in.json',param, loginResult);
