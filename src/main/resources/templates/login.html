@@ -37,7 +37,7 @@
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="../assets/colors/color1.css" />
 
 	<script th:inline="javascript">
-	    noticeTxt = /*[[${noticeTxt}]]*/ null;
+	    noticeList = /*[[${noticeList}]]*/ null;
     </script>
     
 </head>
@@ -179,7 +179,7 @@
         <div class="modal-dialog modal-lg " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">공지사항</h5>
+                    <h5 class="modal-title">공지사항 (최근 1개월 간)</h5>
                     <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -188,7 +188,8 @@
 					<div id = "noticeContent"></div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-secondary onedayHide">24시간동안 감추기</button>
+                    <button class="btn btn-primary noticeClose" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -223,6 +224,9 @@
     <script src="../assets/js/common/common.js"></script>
     
     <script src="../assets/js/sha256.js"></script>
+    
+    <!-- cookie -->
+    <script src="../assets/js/cookie/cookie.js"></script>
     
 </body>
 

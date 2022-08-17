@@ -1,5 +1,6 @@
 package com.toy.app.work.login.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toy.app.core.util.SecretPwHelper;
+import com.toy.app.work.login.dto.NoticeTxtDto;
 import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.login.mapper.LoginMapper;
 
@@ -88,7 +90,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String getNotice() {
+	public List<NoticeTxtDto> getNotice() {
 		// TODO Auto-generated method stub
 		return loginMapper.getNotice();
 	}

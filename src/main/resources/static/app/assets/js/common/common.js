@@ -4,6 +4,7 @@ function commonAjaxCall(url, dataParam, callBackFunc, beforeFunc, afterFunc, suc
 	$.ajax({
 		type : 'post',
 		url : 'http://121.165.12.184:8080/app' + url,
+//		url : 'http://localhost:8080/app' + url,
 		xhrFields : {
 			withCredentials : true,
 		},
@@ -32,6 +33,7 @@ function commonAjaxCall2(url,callBackFunc, beforeFunc, afterFunc, successMsg, er
 	$.ajax({
 		type : 'get',
 		url : 'http://121.165.12.184:8080/app' + url,
+//		url : 'http://localhost:8080/app' + url,
 		success : function(result){
 			callBackFunc ? callBackFunc(result) : '';
 		},

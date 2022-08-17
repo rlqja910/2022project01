@@ -1,6 +1,7 @@
 package com.toy.app.work.login.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toy.app.core.util.ResultCode;
+import com.toy.app.work.login.dto.NoticeTxtDto;
 import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.login.service.LoginService;
 
@@ -39,15 +41,16 @@ public class LoginController {
 		}
 		
 		//공지사항 조회
-		String notice = loginService.getNotice();
+		List<NoticeTxtDto> notice = loginService.getNotice();
 		
 		log.info("notice : {}",notice);
 		
-		if(notice == null) {
-			notice = "최근 공지사항이 없습니다.";
+		if(notice.isEmpty()) {
+			notice.add(new NoticeTxtDto());
+			notice.get(0).setContent("최근 공지사항이 없습니다.");
 		}
 		
-		model.addAttribute("noticeTxt", notice);
+		model.addAttribute("noticeList", notice);
 
 		log.info("[OUT]LoginController goHome");
 

@@ -14,10 +14,10 @@
 	</select>
 	
 	<!-- 공지사항 확인 -->
-	<select id="getNotice" resultType="string">
-		select content from notice_txt
+	<select id="getNotice" resultType="com.toy.app.work.login.dto.NoticeTxtDto">
+		select content, reg_dt from notice_txt
+		where reg_dt > current_timestamp + '-1 mon'
 		order by reg_dt desc
-		limit 1
 	</select>
 	
 	<!-- 계정 정보조회 -->

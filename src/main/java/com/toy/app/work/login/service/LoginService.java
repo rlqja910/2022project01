@@ -1,9 +1,11 @@
 package com.toy.app.work.login.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.toy.app.work.login.dto.NoticeTxtDto;
 import com.toy.app.work.login.dto.UserLoginDto;
 
 public interface LoginService {
@@ -13,5 +15,5 @@ public interface LoginService {
 
 	public UserLoginDto getUserInfo(UserLoginDto userLoginDto);
 
-	public String getNotice();
+	public List<NoticeTxtDto> getNotice();
 }
