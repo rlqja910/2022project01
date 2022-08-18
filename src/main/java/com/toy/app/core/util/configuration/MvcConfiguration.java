@@ -14,5 +14,6 @@ public class MvcConfiguration implements WebMvcConfigurer {
 		System.out.println("===configuration 탐색===");
 
 		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/app/dashboard/**");
+		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/app/chat/**");
 	}
 }
