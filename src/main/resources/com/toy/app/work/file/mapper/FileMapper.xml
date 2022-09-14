@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toy.app.work.file.mapper.FileMapper">
+
+	<insert id="insertImg"
+		parameterType="com.toy.app.work.file.dto.ImgDto">
+		INSERT INTO post_img
+		(user_id, title,
+		uuid,path,origin_file_nm,reg_dt)
+		VALUES(#{userId},#{title},#{uuid},#{path}, #{originFileNm},
+		CURRENT_TIMESTAMP)
+	</insert>
+	
+	<select id="getImg"
+		parameterType = "String"
+		resultType ="com.toy.app.work.file.dto.ImgDto">
+		SELECT user_id, origin_file_nm, title, path, uuid, reg_dt
+		from post_img
+		where user_id = #{userId}
+		order by reg_dt desc
+		limit 1
+	</select>
+
+</mapper>

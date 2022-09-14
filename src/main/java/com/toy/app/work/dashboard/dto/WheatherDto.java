@@ -12,5 +12,7 @@ public class WheatherDto {
 	private String content;
 
 	private String regDt;
+	
+	private String phoneNum;
 
 }

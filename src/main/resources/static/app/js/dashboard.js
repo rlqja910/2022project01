@@ -21,6 +21,21 @@ $(document).ready(function() {
 	
 });
 
+function sendSmsFn(){
+	console.log($('#phoneNum').val());
+	
+	var param = {
+		phoneNum : $('#phoneNum').val(),
+	}
+	
+	commonAjaxCall('/dashboard/sendSmsWeather.json',param,smsSendResultFn);
+}
+
+function smsSendResultFn(result){
+	console.log(result);
+	result.sendResult === 'Y' ? alert('문자가 정상적으로 발송되었습니다.'): alert('문자발송에 실패하였습니다.') ;
+}
+
 $(document).on("click", "#click1", function(e) {
         $('body').removeClass('timer-alert');
 	        swal({
@@ -90,7 +105,13 @@ function setNowweather(){
 		$('#weatherImg').eq(0).prop("src","../assets/images/weather/rainshower.png");
 		$('#weatherImg').eq(0).prop("title",'흐리고 한때 소나기');
 		$('#weatherImg').eq(0).prop("alt",'흐리고 한때 소나기');
-	}else if(weather2[2] === '흐림'){
+	}else{
+		$('#weatherImg').remove();
+		$('#temper').eq(0).text(weather[0] + ' ' + weather[1] + '('+ weather[2] +')');
+		$('#temper2').eq(0).text(weather[0] + ' ' + weather[1] + '('+ weather[2] +')');
+	}
+	
+	if(weather2[2] === '흐림'){
 		$('#weatherImg2').eq(0).prop("src","../assets/images/weather/blackcloudy.png");
 		
 		$('#click1').trigger('click');
@@ -121,8 +142,6 @@ function setNowweather(){
 		$('#weatherImg2').eq(0).prop("alt",'흐리고 한때 소나기');
 	}else{
 		$('#weatherImg').remove();
-		$('#temper').eq(0).text(weather[0] + ' ' + weather[1] + '('+ weather[2] +')');
-		$('#temper2').eq(0).text(weather[0] + ' ' + weather[1] + '('+ weather[2] +')');
 		$('#temper3').eq(0).text(weather2[0] + ' ' + weather2[1] + '('+ weather2[2] +')');
 		$('#temper4').eq(0).text(weather2[0] + ' ' + weather2[1] + '('+ weather2[2] +')');
 		

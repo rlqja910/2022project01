@@ -23,6 +23,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 			log.info("로그인 안되어 있는 경우 home으로 이동한다.");
 			response.sendRedirect("/app/login/home.do");
 			return false;
+		}else {
+			log.info("로그인이 되어있다.");
 		}
 
 		return true;

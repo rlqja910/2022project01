@@ -16,7 +16,7 @@ $(document).ready(function() {
 		send();
 	});
 
-	const websocket = new WebSocket("ws://localhost:8080/ws/chat");
+	const websocket = new WebSocket("ws://192.168.31.102:8080/ws/chat");
 
 	websocket.onmessage = onMessage;
 	websocket.onopen = onOpen;

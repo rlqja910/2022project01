@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -139,20 +140,21 @@ public class DashboardController {
 		return resultMap;
 	}
 
-	@RequestMapping(value = "sendSmsWeather.json", method = RequestMethod.GET)
+	@RequestMapping(value = "sendSmsWeather.json", method = RequestMethod.POST)
 	@ApiOperation(value = "날씨 정보 문자발송")
-	public @ResponseBody Map<String, Object> sendSmsWeather(HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> sendSmsWeather(HttpServletRequest request,@RequestBody WheatherDto wheatherDto) {
 		log.info("=[IN]DashboardController sendSmsWeather");
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String phoneNum = wheatherDto.getPhoneNum();
 
 		// 문자 api
-		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSIT9LPUEM462LU",
-				"2XZLOQOJKFHAQYY2HRUTSL49TONAJSFW", "https://api.solapi.com");
+		DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSCNU1REOJQGVJA",
+				"AXWP6BVLLSP5JJNEE5IZNSXBLLUBPJAP", "https://api.solapi.com");
 		// Message 패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요
 		Message message = new Message();
 		message.setFrom("01088981118");
-		message.setTo("01088981118");
+		message.setTo(phoneNum);
 		message.setText("상갈동 날씨 크롤링 테스트문자 발송");
 
 		try {

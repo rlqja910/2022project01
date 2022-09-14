@@ -15,5 +15,6 @@ public class MvcConfiguration implements WebMvcConfigurer {
 
 		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/app/dashboard/**");
 		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/app/chat/**");
+		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/app/file/**");
 	}
 }
