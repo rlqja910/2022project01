@@ -1,5 +1,7 @@
 package com.toy.app.work.file.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,16 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public ImgDto getImg(String userId) {
 		ImgDto imgDto = new ImgDto();
-		
+
 		imgDto = fileMapper.getImg(userId);
-		
+
 		return imgDto;
+	}
+
+	@Override
+	public List<ImgDto> getUploadHist(String userId) {
+		List<ImgDto> uploadList = fileMapper.getUploadHist(userId);
+
+		return uploadList;
 	}
 }

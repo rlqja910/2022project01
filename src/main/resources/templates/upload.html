@@ -9,6 +9,19 @@
     <script src="../assets/js/sweet-alert.js"></script>
     
 <script src="../assets/js/confetti_v2.js"></script>
+<script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.bootstrap5.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
+    <script src="../assets/plugins/datatable/js/jszip.min.js"></script>
+    <script src="../assets/plugins/datatable/pdfmake/pdfmake.min.js"></script>
+    <script src="../assets/plugins/datatable/pdfmake/vfs_fonts.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.html5.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.print.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.colVis.min.js"></script>
+    <script src="../assets/plugins/datatable/dataTables.responsive.min.js"></script>
+    <script src="../assets/plugins/datatable/responsive.bootstrap5.min.js"></script>
+    <script src="../assets/js/table-data.js"></script>
 
     <!--- FONT-ICONS CSS -->
     <link href="../assets/css/icons.css" rel="stylesheet" />
@@ -18,7 +31,7 @@
     
     <script th:inline="javascript">
    		imgPath = /*[[${imgPath}]]*/ null;
-   		console.log(imgPath);
+   		uploadList = /*[[${uploadList}]]*/ null;
     </script>
 
 <head>
@@ -447,6 +460,26 @@
 		                        	<a href="javascript:saveImg();" class="btn btn-gray-dark">id, 이미지 전송</a>
 		                        </div><br>
 	                        </form>
+	                        
+	                        <br><br>
+	                        
+	                        <!-- Row -->
+	                        <div class="row row-sm">
+	                            <div class="col-lg-12">
+	                                <div class="card">
+	                                    <div class="card-header">
+	                                        <h3 class="card-title">업로드 이력</h3>
+	                                    </div>
+	                                    <div class="card-body">
+	                                        <div class="table-responsive" id="uploadTableDiv">
+	                                            
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+                        <!-- End Row -->
+	                        
                         </div>
                         <!-- ROW-1 END -->
                     </div>

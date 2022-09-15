@@ -21,5 +21,14 @@
 		order by reg_dt desc
 		limit 1
 	</select>
+	
+	<select id="getUploadHist"
+		parameterType = "String"
+		resultType ="com.toy.app.work.file.dto.ImgDto">
+		SELECT user_id, origin_file_nm, title, path, uuid, reg_dt
+		from post_img
+		where user_id = #{userId}
+		order by reg_dt desc
+	</select>
 
 </mapper>

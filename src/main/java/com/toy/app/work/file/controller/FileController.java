@@ -3,36 +3,27 @@ package com.toy.app.work.file.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.toy.app.work.dashboard.dto.WheatherDto;
 import com.toy.app.work.file.dto.ImgDto;
 import com.toy.app.work.file.service.FileService;
-import com.toy.app.work.login.dto.UserLoginDto;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
-import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.service.DefaultMessageService;
 
 @Slf4j
 @Controller
@@ -50,6 +41,7 @@ public class FileController {
 		String userId = (String)request.getSession().getAttribute("loginId");
 		
 		ImgDto imgDto = fileService.getImg(userId);
+		List<ImgDto> uploadList = fileService.getUploadHist(userId);
 		
 		if(imgDto != null) {
 			log.info("저장된 이미지가 있다.");
@@ -57,10 +49,24 @@ public class FileController {
 
 			//확장자 추출
 			String fileExtension = FilenameUtils.getExtension(imgDto.getOriginFileNm());
-			String imgPath = imgDto.getPath() + imgDto.getUuid() + "." + fileExtension;
+			String imgPath = "../../uploadImg/" + imgDto.getUuid() + "." + fileExtension;
 			
 			
 			model.addAttribute("imgPath", imgPath);
+		}
+		
+		if(!uploadList.isEmpty()) {
+			
+			for(ImgDto imgInfo : uploadList) {
+				
+				//확장자 추출
+				String fileExtension = FilenameUtils.getExtension(imgInfo.getOriginFileNm());
+				String path = "../../uploadImg/" + imgInfo.getUuid() + "." + fileExtension;
+				
+				imgInfo.setPath(path);
+			}
+			
+			model.addAttribute("uploadList", uploadList);
 		}
 
 		log.info("[OUT]FileController goFileUpload");
@@ -117,7 +123,7 @@ public class FileController {
 		}
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		String serverPath =request.getRealPath(File.separator)+"\\uploadImg\\"+file.getOriginalFilename();
+		String serverPath ="../../uploadImg/"+tempFileName.toString() + "." + fileExtension;
 		
 		resultMap.put("path", serverPath);
 		

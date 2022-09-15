@@ -4,6 +4,53 @@ $(document).ready(function() {
 		const elImage = document.querySelector("#img1");
 		console.log(elImage);
 	 	elImage.src = imgPath;
+	 	//elImage.src = '../../uploadImg/e39e99e4-03c9-4665-9ef2-7eb9b2413024.png';
+	}
+	
+	if(uploadList){
+		console.log('업로드 이력이 있습니다.');
+		console.log(uploadList);
+		
+		uploadListHtml = '';
+		
+		uploadListHtml += '<table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom">';
+		uploadListHtml += '<thead>';
+		uploadListHtml += '<th class="border-bottom-0">업로더</th>';
+		uploadListHtml += '<th class="border-bottom-0">제목</th>';
+		uploadListHtml += '<th class="border-bottom-0">등록일시</th>';
+		uploadListHtml += '<th class="border-bottom-0">-</th>';
+		uploadListHtml += '</tr>';
+		uploadListHtml += '</thead>';
+		uploadListHtml += '<tbody>';
+		
+		for(var imgInfo of uploadList){
+			
+			uploadListHtml += '<tr>';
+			
+			uploadListHtml += '<td>';
+			uploadListHtml += imgInfo.userId;
+			uploadListHtml += '</td>';
+			
+			uploadListHtml += '<td>';
+			uploadListHtml += imgInfo.title;
+			uploadListHtml += '</td>';
+			
+			uploadListHtml += '<td>';
+			uploadListHtml += imgInfo.regDt;
+			uploadListHtml += '</td>';
+			
+			uploadListHtml += '<td>';
+			uploadListHtml += '<input type="button" value="보기" />';
+			uploadListHtml += '</td>';
+			
+			uploadListHtml += '</tr>';
+		}
+		uploadListHtml += '</tbody>';
+		uploadListHtml += '</table>';
+		
+		console.log(uploadListHtml);
+		$('#uploadTableDiv').html(uploadListHtml);
+		
 	}
 });
 
@@ -29,9 +76,9 @@ function saveImg(){
 			console.log(result);
             alert('사진이 전송되었습니다.');
 			const elImage = document.querySelector("#img1");
-	 		elImage.src = 'C:\\Users\\kkb50\git\\2022project01\\src\\main\\webapp\\uploadImg\\NAT.png';
-            const blobSupported = new Blob(["ä"]).size === 2; //blob이 호환되는지 확인
-            console.log(blobSupported);
+	 		elImage.src = result.path;
+            //const blobSupported = new Blob(["ä"]).size === 2; //blob이 호환되는지 확인
+            //console.log(blobSupported);
         }).fail(function (error) {
             alert(JSON.stringify(error));
 		});
