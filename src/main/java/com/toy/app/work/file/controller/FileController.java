@@ -75,7 +75,7 @@ public class FileController {
 	}
 
 	@RequestMapping(value="sendImg.json", method = RequestMethod.POST)
-	@ApiOperation(value = "날씨 정보 문자발송")
+	@ApiOperation(value = "이미지 업로드")
 	public @ResponseBody Map<String, Object> sendImg(@RequestPart(value = "key") ImgDto imgDto,
 		@RequestPart(value = "file") MultipartFile file, HttpServletRequest request) {
 
@@ -126,6 +126,26 @@ public class FileController {
 		String serverPath ="../../uploadImg/"+tempFileName.toString() + "." + fileExtension;
 		
 		resultMap.put("path", serverPath);
+		
+		//이미지 리스트 조회
+		String userId = (String)request.getSession().getAttribute("loginId");
+		
+		List<ImgDto> uploadList = fileService.getUploadHist(userId);
+		
+		
+		if(!uploadList.isEmpty()) {
+			
+			for(ImgDto imgInfo : uploadList) {
+				
+				//확장자 추출
+				String fileExtension2 = FilenameUtils.getExtension(imgInfo.getOriginFileNm());
+				String path = "../../uploadImg/" + imgInfo.getUuid() + "." + fileExtension2;
+				
+				imgInfo.setPath(path);
+			}
+			
+			resultMap.put("uploadList",uploadList);
+		}
 		
 		log.info("[OUT]FileController sendImg");
 		

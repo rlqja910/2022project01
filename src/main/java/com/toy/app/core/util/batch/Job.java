@@ -6,54 +6,76 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-import com.toy.app.work.login.dto.NoticeTxtDto;
-import com.toy.app.work.login.service.LoginService;
+import com.toy.app.work.dashboard.dto.Member;
+import com.toy.app.work.dashboard.repository.MemberRepository;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@Configuration
 public class Job {
-//	
-//	@Autowired
-//	private LoginService loginService;
-//	
-//	//.get("myjob") : job이라는 이름의 Job을 생성하는 JobBulder 인스턴스를 반환받고자 합니다.
-//	//.start(myStep) : myStep이라는 메서드에서 Step이라는 인스턴스를 생성하여 반환받습니다.
-//	//.build(); : 이 메소드를 통해 비로소 myJob이라는 Job이 빌드가 되면서 Job이 생성됩니다. 
-//	@Bean
-//	public Job myJob(JobBuilderFactory jobBuilderFactory) {
-//		return jobBuilderFactory.get("myJob")
-//				.start(mystep)
-//				.build();
-//	}
-//	
-//	@Bean
-//	public Step mystep(StepBuilderFactory stepBuilderFactory) {
-//		return stepBuilderFactory.get("mystep")
-//				.<NoticeTxtDto,NoticeTxtDto> chunk(2)
-//				.reader(myReader())
-//				.processor(myProcessor())
-//				.writer(myWriter())
-//				.build();
-//	}
-//	
-//	@Bean
-//	@StepScope
-//	public ListItemReader<NoticeTxtDto> myReader(){
-//		System.out.println("================ListItemReader===================");
-//		//공지사항 조회
-//		List<NoticeTxtDto> oldNotice = loginService.getNotice();
-//		System.out.println(oldNotice.toString());
-//		return new ListItemReader<>(oldNotice);
-//	}
-//	
-//	public NoticeTxtDto myProcessor(){
-//		System.out.println("================ItemProcessor===================");
-//		NoticeTxtDto aa = new NoticeTxtDto();
-//		aa.setContent("1111");
-//		aa.setRegDt("1111-11-11");
-//		System.out.println(aa.toString());
-//		return aa;
-//	}
+	
+	private MemberRepository memberRepository;
+	
+	//.get("myjob") : job이라는 이름의 Job을 생성하는 JobBulder 인스턴스를 반환받고자 합니다.
+	//.start(myStep) : mySt`ep이라는 메서드에서 Step이라는 인스턴스를 생성하여 반환받습니다.
+	//.build(); : 이 메소드를 통해 비로소 myJob이라는 Job이 빌드가 되면서 Job이 생성됩니다. 
+	@Bean
+	public org.springframework.batch.core.Job myJob(JobBuilderFactory jobBuilderFactory,
+			Step mystep) {
+		return jobBuilderFactory.get("myJob") //job builder 생성됨.
+				.preventRestart()
+				.start(mystep)
+				.build();
+	}
+	
+	@Bean
+	public Step mystep(StepBuilderFactory stepBuilderFactory) {
+		return stepBuilderFactory.get("mystep")
+				.<Member,Member> chunk(100)
+				.reader(myReader())
+				.processor(myProcessor())
+				.writer(myWriter())
+				.build();
+	}
+	
+	@Bean
+	@StepScope
+	public ListItemReader<Member> myReader(){
+		System.out.println("================myReader===================");
+		//공지사항 조회
+		List<Member> oldMember = (List<Member>) memberRepository.findAll();
+		System.out.println(oldMember.toString());
+		return new ListItemReader<>(oldMember);
+	}
+	
+	public ItemProcessor<Member,Member> myProcessor(){
+		System.out.println("================ItemProcessor===================");
+		return new ItemProcessor<Member, Member>() {
+			@Override
+			public Member process(Member item) throws Exception {
+				// TODO Auto-generated method stub
+				System.out.println("================ItemProcessor process===================");
+				item.setMb_id("2");
+				
+				return item;
+			}
+		};
+	}
+	
+	public ItemWriter<Member> myWriter(){
+		System.out.println("================myWriter===================");
+		
+		return (
+					(List<? extends Member> memberList) -> 
+					memberRepository.saveAll(memberList)
+				);
+	}
 }

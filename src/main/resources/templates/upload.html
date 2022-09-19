@@ -454,14 +454,25 @@
 		                        </div><br>
 	                        	<div class="form-group row">
 	                        		<input type="file" name="fileNm" id="fileBody" value="전송" accept="image/png, image/jpeg" multiple />
-	                        		<img id="img1" src="" width="300" height="300"/>
 	                        	</div>
 	                        	<div>
 		                        	<a href="javascript:saveImg();" class="btn btn-gray-dark">id, 이미지 전송</a>
 		                        </div><br>
 	                        </form>
 	                        
-	                        <br><br>
+	                        <br>마지막 업로드 파일<br>
+	                        <!-- GALLERY DEMO OPEN -->
+	                        <div class="masonry row">
+	                            <div class="col-xl-3 col-lg-4 col-sm-6">
+	                                <div class="brick">
+	                                    <a href="../assets/images/media/1.jpg" id="img1" class="js-img-viewer" data-caption="IMAGE-01"
+	                                        data-id="lion">
+	                                        <img id="img2" src="../assets/images/media/1.jpg" alt="" />
+	                                    </a>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <!-- GALLERY DEMO CLOSED -->
 	                        
 	                        <!-- Row -->
 	                        <div class="row row-sm">
@@ -1159,6 +1170,9 @@
     <!-- CUSTOM JS -->
     <script src="../assets/js/custom.js"></script>
 
+	<!-- GALLERY JS -->
+    <script src="../assets/plugins/SmartPhoto-master/smartphoto.js"></script>
+    <script src="../assets/js/gallery.js"></script>
 </body>
 
 </html>

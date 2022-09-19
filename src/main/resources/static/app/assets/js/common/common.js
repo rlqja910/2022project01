@@ -48,3 +48,11 @@ function commonAjaxCall2(url,callBackFunc, beforeFunc, afterFunc, successMsg, er
 		},
 	});
 };
+
+function strEmptyCheck(str){
+	if(str){
+		return str;
+	}else{
+		return '-';
+	}
+}

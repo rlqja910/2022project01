@@ -2,6 +2,7 @@ package com.toy.app.work.dashboard.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +13,16 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.toy.app.work.dashboard.dto.Member;
 import com.toy.app.work.dashboard.dto.WheatherDto;
 import com.toy.app.work.dashboard.service.DashboardService;
+import com.toy.app.work.dashboard.service.MemberService;
 import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.login.service.LoginService;
 
@@ -39,11 +43,21 @@ public class DashboardController {
 
 	@Autowired
 	private DashboardService dashboardService;
+	
+	//jpa 연동
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping(value = "home.do", method = RequestMethod.GET)
 	@ApiOperation(value = "홈 (대시보드)")
 	public String goDashboard(HttpServletRequest request, Model model ) {
 		log.info("[IN]DashboardController goDashboard");
+		
+		log.info("=============");
+		memberService.in(new HashMap<String,Object>() , new ModelMap());
+		List<Member> memberList = (List<Member>)memberService.list();
+		System.out.println(memberList.toString());
+		log.info("=============");
 
 		// 상갈동 날씨 크롤링
 		String URL = "https://weather.naver.com/today/02463103";
