@@ -1,5 +1,6 @@
 package com.toy.app.core.util.batch;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.batch.core.Job;
@@ -11,6 +12,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,7 +34,7 @@ public class JobConfig {
 	@Bean
 	public Job myJob(JobBuilderFactory jobBuilderFactory,
 			Step mystep) {
-		return jobBuilderFactory.get("myJob2") //job builder 생성됨.
+		return jobBuilderFactory.get(new Date().toString()) //job builder 생성됨.
 //				.preventRestart() //job 중복실행 방지
 				.start(mystep)
 				.build();
@@ -40,7 +42,7 @@ public class JobConfig {
 	
 	@Bean
 	public Step mystep(StepBuilderFactory stepBuilderFactory) {
-		return stepBuilderFactory.get("mystep2")
+		return stepBuilderFactory.get(new Date().toString())
 				.<Member,Member> chunk(100)
 				.reader(myReader())
 				.processor(this.myProcessor())
