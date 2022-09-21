@@ -33,16 +33,27 @@ public class JobConfig {
 	//.build(); : 이 메소드를 통해 비로소 myJob이라는 Job이 빌드가 되면서 Job이 생성됩니다. 
 	@Bean
 	public Job myJob(JobBuilderFactory jobBuilderFactory,
-			Step mystep) {
+			Step mystep,Step mystep2) {
 		return jobBuilderFactory.get(new Date().toString()) //job builder 생성됨.
 //				.preventRestart() //job 중복실행 방지
 				.start(mystep)
+				.next(mystep2)
 				.build();
 	}
 	
 	@Bean
 	public Step mystep(StepBuilderFactory stepBuilderFactory) {
-		return stepBuilderFactory.get(new Date().toString())
+		return stepBuilderFactory.get("111111")
+				.<Member,Member> chunk(100)
+				.reader(myReader())
+				.processor(this.myProcessor())
+				.writer(this.myWriter())
+				.build();
+	}
+	
+	@Bean
+	public Step mystep2(StepBuilderFactory stepBuilderFactory) {
+		return stepBuilderFactory.get("2222222")
 				.<Member,Member> chunk(100)
 				.reader(myReader())
 				.processor(this.myProcessor())
