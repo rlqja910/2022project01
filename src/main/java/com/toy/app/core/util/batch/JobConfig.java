@@ -21,8 +21,8 @@ import com.toy.app.work.dashboard.repository.MemberRepository;
 
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
-@Configuration
+//@AllArgsConstructor
+//@Configuration
 public class JobConfig {
 	
 	@Autowired
