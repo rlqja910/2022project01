@@ -1,15 +1,15 @@
-package com.toy.app.core.util.dto;
+package com.toy.app.work.login.dto;
 
 import lombok.Data;
 
 @Data
-public class examInfoDto {
+public class ExamInfoDto {
 
 	private String id;
 	
-	private String template_id;
+	private String templateId;
 	
-	private String right_title;
+	private String rightTitle;
 	
 	private String history;
 	
@@ -20,6 +20,8 @@ public class examInfoDto {
 	private String answer;
 	
 	private String solution;
-	
+
 	private String ordg;
+
+	private String questionMessage;
 }

@@ -1,9 +1,9 @@
-package com.toy.app.core.util.dto;
+package com.toy.app.work.login.dto;
 
 import lombok.Data;
 
 @Data
-public class examInfoRes {
+public class ExamInfoRes {
 
 	private String id;
 	
@@ -22,4 +22,6 @@ public class examInfoRes {
 	private String solution;
 	
 	private String ordg;
+
+	private String questionMessage;
 }

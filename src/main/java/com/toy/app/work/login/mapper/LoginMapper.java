@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.toy.app.work.login.dto.ExamInfoDto;
+import com.toy.app.work.login.dto.ExamInfoReq;
+import com.toy.app.work.login.dto.ExamInfoRes;
 import com.toy.app.work.login.dto.NoticeTxtDto;
 import com.toy.app.work.login.dto.UserLoginDto;
 
@@ -19,5 +22,13 @@ public interface LoginMapper {
 	public int updateLoginSuccess(UserLoginDto userInfo);
 
 	public List<NoticeTxtDto> getNotice();
+
+	public int resetBox(ExamInfoDto examInfoDto);
+
+	public int deleteBox();
+
+	public List<ExamInfoRes> selectQn(ExamInfoReq examInfoReq);
+
+	public void updateQn(ExamInfoReq examInfoReq);
 
 }

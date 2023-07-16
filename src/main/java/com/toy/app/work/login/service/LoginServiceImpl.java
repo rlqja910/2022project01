@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toy.app.core.util.SecretPwHelper;
+import com.toy.app.work.login.dto.ExamInfoDto;
+import com.toy.app.work.login.dto.ExamInfoReq;
+import com.toy.app.work.login.dto.ExamInfoRes;
 import com.toy.app.work.login.dto.NoticeTxtDto;
 import com.toy.app.work.login.dto.UserLoginDto;
 import com.toy.app.work.login.mapper.LoginMapper;
@@ -93,5 +96,44 @@ public class LoginServiceImpl implements LoginService {
 	public List<NoticeTxtDto> getNotice() {
 		// TODO Auto-generated method stub
 		return loginMapper.getNotice();
+	}
+
+	@Override
+	public int setResetBox(List<ExamInfoDto> examInfoDto) {
+		// TODO Auto-generated method stub
+		loginMapper.deleteBox();
+		
+		for(ExamInfoDto a : examInfoDto) {
+			if(a.getSolution() == null) {
+				a.setSolution("");
+			}
+			if(a.getOxQuiz() == null) {
+				a.setOxQuiz("");
+			}
+			if(a.getAnswer() == null) {
+				a.setAnswer("");
+			}
+			if(a.getQuestionMessage() == null) {
+				a.setQuestionMessage("");
+			}
+			
+			System.out.println(a.toString());
+			loginMapper.resetBox(a);
+		}
+		return 1;
+		
+	}
+
+	@Override
+	public List<ExamInfoRes> selectQn(ExamInfoReq examInfoReq) {
+		// TODO Auto-generated method stub
+		List<ExamInfoRes> list = loginMapper.selectQn(examInfoReq);
+		return list;
+	}
+
+	@Override
+	public void updateQn(ExamInfoReq examInfoReq) {
+		// TODO Auto-generated method stub
+		loginMapper.updateQn(examInfoReq);
 	}
 }

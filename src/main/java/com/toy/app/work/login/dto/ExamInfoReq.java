@@ -1,9 +1,9 @@
-package com.toy.app.core.util.dto;
+package com.toy.app.work.login.dto;
 
 import lombok.Data;
 
 @Data
-public class examInfoReq {
+public class ExamInfoReq {
 
 	private String id;
 	

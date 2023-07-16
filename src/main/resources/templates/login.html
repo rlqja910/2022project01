@@ -46,33 +46,34 @@
 
     <!-- BACKGROUND-IMAGE -->
     <div class="login-img">
-        <!-- GLOABAL LOADER -->
-        <div id="global-loader">
-            <img src="../assets/images/loader.svg" class="loader-img" alt="Loader">
-        </div>
-        <!-- /GLOABAL LOADER -->
-
         <!-- PAGE -->
         <div class="page">
             <div class="">
 
                 <!-- CONTAINER OPEN -->
                 <div class="col col-login mx-auto mt-7">
-                <div class="bird-container1">
-                <div class="bird1"></div>
-                </div>
-                <div class="bird-container2">
-                <div class="bird2"></div>
-                </div>
-                <div class="bird-container3">
-                <div class="bird3"></div>
-                </div>
-                <div class="bird-container4">
-                <div class="bird4"></div>
-                </div>
                  <button class="btn btn-success bg-success-gradient mt-3 noticeModal" style="display: none;" data-bs-toggle="modal" data-bs-target="#largemodal">large Modal</button>
                     <div class="text-center">
-                        <img src="../assets/images/brand/logo-white.png" class="header-brand-img" alt="">
+                        <div class="container-login100-form-btn">
+                                                <a href="javascript:void(0);" onclick="allQn();" class="login100-form-btn btn-primary">
+                                                        초기 기억상자
+                                                </a>
+                                            </div>
+                        <div class="container-login100-form-btn">
+                                                <a href="javascript:void(0);" onclick="secondQn();" class="login100-form-btn btn-primary">
+                                                        2단계 기억상자
+                                                </a>
+                                            </div>
+                        <div class="container-login100-form-btn">
+                                                <a href="javascript:void(0);" onclick="finalQn();" class="login100-form-btn btn-primary">
+                                                        최종 기억상자
+                                                </a>
+                                            </div>
+                        <div class="container-login100-form-btn">
+                                                <a href="javascript:void(0);" onclick="junkQn();" class="login100-form-btn btn-primary">
+                                                        휴지통
+                                                </a>
+                                            </div>
                     </div>
                 </div>
 
@@ -81,60 +82,66 @@
                         <form class="login100-form validate-form">
                         
                             <span class="login100-form-title pb-5">
-                                Login
+                                
                             </span>
                             <div class="panel panel-primary">
                                 <div class="tab-menu-heading">
                                     <div class="tabs-menu1">
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs">
-                                            <li class="mx-0"><a href="#tab5" class="active" data-bs-toggle="tab">Email</a></li>
-                                            <li class="mx-0"><a href="#tab6" data-bs-toggle="tab">Mobile</a></li>
+                                            <li class="mx-0" id='cnt'>개수</li>
+                                        </ul>
+                                        <!-- Tabs -->
+                                        <ul class="nav panel-tabs">
+                                            <li style="color: red;" class="mx-0" id='dan'>단원</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="panel-body tabs-menu-body p-0 pt-5">
                                     <div class="tab-content">
+                                    	<div class="container-login100">
+                    <div class="wrap-login100 p-6">
+                        <form class="login100-form validate-form">
+                            <span class="login100-form-title" id='question'>
+									문제
+								</span>
+							<span class="login100-form-title" id='questionMessage'>
+								</span>
+							<span style="color: red;" class="login100-form-title" id='answer'>
+								</span>
+                            <div class="container-login100-form-btn">
+                                <a style="width:30%;" href="javascript:viewAns()" class="login100-form-btn btn-primary">
+										해답
+									</a>
+                            </div>
+                            <div style="color: red;" class="container-login100-form-btn">
+                                <a style="width:30%;"  href="javascript:goJunkQn()" class="login100-form-btn btn-primary">
+										휴지통으로 버리기
+									</a>
+                            </div>
+                            <div class="container-login100-form-btn">
+                                <a style="width:30%;"  href="javascript:goAllQn()" class="login100-form-btn btn-primary">
+										초기기억상자로
+									</a>
+                            </div>
+                            <div class="container-login100-form-btn">
+                                <a style="width:30%;"  href="javascript:goSecondQn()" class="login100-form-btn btn-primary">
+										2차 기억상자로
+									</a>
+                            </div>
+                            <div class="container-login100-form-btn">
+                                <a style="width:30%;"  href="javascript:goFinalQn()" class="login100-form-btn btn-primary">
+										최종기억상자로
+									</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                                    
                                         <div class="tab-pane active" id="tab5">
-                                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
-                                                    <i class="zmdi zmdi-email text-muted" aria-hidden="true"></i>
-                                                </a>
-                                                <input class="input100 border-start-0 form-control ms-0" id="userId" type="text" placeholder="Email">
-                                            </div>
-                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
-                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
-                                                </a>
-                                                <input class="input100 border-start-0 form-control ms-0" id="userPw" type="password" placeholder="Password">
-                                            </div>
-                                            <div class="text-end pt-4">
-                                                <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p>
-                                            </div>
-                                            <div class="container-login100-form-btn">
-                                                <a href="javascript:void(0);" onclick="emailLoginFn();" class="login100-form-btn btn-primary">
-                                                        Email Login
-                                                </a>
-                                            </div>
-                                            <div class="text-center pt-3">
-                                                <p class="text-dark mb-0">Not a member?<a href="javascript:void(0);" onclick="goJoin();" class="text-primary ms-1">Sign UP</a></p>
-                                            </div>
-                                            <label class="login-social-icon"><span>Login with Social</span></label>
-                                            <div class="d-flex justify-content-center">
-                                                <a href="javascript:alert('준비중입니다.')">
-                                                    <div class="social-login me-4 text-center">
-                                                        <i class="fa fa-google"></i>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:alert('준비중입니다.')">
-                                                    <div class="social-login me-4 text-center">
-                                                        <i class="fa fa-facebook"></i>
-                                                    </div>
-                                                </a>
-                                                <a href="javascript:alert('준비중입니다.')">
-                                                    <div class="social-login text-center">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </div>
+                                            <div style="display: none;" class="container-login100-form-btn">
+                                                <a href="javascript:void(0);" onclick="resetDb();" class="login100-form-btn btn-primary">
+                                                        기억상자 초기화
                                                 </a>
                                             </div>
                                         </div>

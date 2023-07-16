@@ -49,4 +49,51 @@
 		, LOGIN_FAIL_CNT = 0
 		WHERE user_id = #{userId}
 	</update>
+	
+	<delete id="deleteBox">
+		delete from "C##RLQJA910".exam_tb
+	</delete>
+	
+	<insert id="resetBox" parameterType="com.toy.app.work.login.dto.ExamInfoDto">
+	<![CDATA[
+        insert into "C##RLQJA910".exam_tb(
+            id,
+            template_id,
+            right_title,
+            history,
+            oxQuiz,
+            question,
+            answer,
+            solution,
+            ordg,
+            question_message
+        )values
+        (
+            #{id},
+            #{templateId},
+            #{rightTitle},
+            #{history},
+            #{oxQuiz},
+            #{question},
+            #{answer},
+            #{solution},
+            #{ordg},
+            #{questionMessage}
+        )
+          ]]>
+	</insert>
+	
+	<select id="selectQn"
+		parameterType="com.toy.app.work.login.dto.ExamInfoReq"
+		resultType="com.toy.app.work.login.dto.ExamInfoRes">
+		SELECT * FROM "C##RLQJA910".exam_tb
+       	WHERE ORDG = #{ordg}
+	</select>
+	
+	<update id="updateQn"
+		parameterType="com.toy.app.work.login.dto.ExamInfoReq">
+		update "C##RLQJA910".exam_tb
+       	set ORDG = #{ordg}
+       	where id = #{id}
+	</update>
 </mapper>
