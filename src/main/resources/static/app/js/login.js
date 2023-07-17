@@ -42,7 +42,6 @@ function getFn(result){
 		$('#dan').text('');
 		$('#answer').html('');
 		$('#questionMessage').html('');
-		$('#answer').css('display','none');
 		$('#cnt').text('');
 		
 		alert('없어요');
@@ -50,23 +49,37 @@ function getFn(result){
 	}
 	qnList = result.qnList;
 	
-	$('#question').html(qnList[0].question);
-	$('#question').val(qnList[0].id);
-	$('#dan').text(qnList[0].rightTitle + '    ( '+ qnList[0].history + ')');
-	$('#answer').html(qnList[0].answer);
-	$('#questionMessage').html(qnList[0].questionMessage);
-	$('#answer').css('display','none');
-	$('#cnt').text('총개수 : ' + qnList.length);
+	var shuffledArray = [...qnList].sort(()=>Math.random()-0.5);
+	
+	$('#question').html('');
+	$('#question').val('');
+	$('#dan').text('');
+	$('#answer').html('');
+	$('#questionMessage').html('');
+	$('#cnt').text('');
+	
+	$('#question').html(shuffledArray[0].question);
+	$('#question').val(shuffledArray[0].id);
+	$('#dan').text(shuffledArray[0].rightTitle + '    ( '+ shuffledArray[0].history + ')');
+	$('#answer').html(shuffledArray[0].answer);
+	if(shuffledArray[0].questionMessage){
+		$('#questionMessage').html('<br>'+shuffledArray[0].questionMessage);
+		$('#questionMessage').css('color','black');
+	}else{
+		$('#questionMessage').css('color','white');
+	}
+	$('#answer').css('color','white');
+	$('#cnt').text('총개수 : ' + shuffledArray.length);
 	
 }
 
 function viewAns(){
 	console.log('해답을 봅니다');
 
-	if($('#answer').css('display') == 'block'){
-		$('#answer').css('display','none');
+	if($('#answer').css('color') == 'rgb(255, 255, 255)'){
+		$('#answer').css('color','red');
 	}else{
-		$('#answer').css('display','block');
+		$('#answer').css('color','white');
 	}
 }
 
