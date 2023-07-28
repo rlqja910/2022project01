@@ -7,22 +7,30 @@ console.log('시작');
 
 allQn();
 
+$(document).keydown( function(event) {
+	if (event.keyCode == 32) {
+		event.preventDefault();
+		//기능구현
+		viewAns()();
+	}
+});
+
 });
 
 function allQn(){
-	console.log('초기 시억상자 가져옵니다');
+	console.log('초기 기억상자 가져옵니다');
 	thisForm = '1';
 	commonAjaxCall('/login/selectQn.json',{ordg:'3'}, getFn);
 }
 
 function secondQn(){
-	console.log('2단계 시억상자 가져옵니다');
+	console.log('2단계 기억상자 가져옵니다');
 	thisForm = '2';
 	commonAjaxCall('/login/selectQn.json',{ordg:'2'}, getFn);
 }
 
 function finalQn(){
-	console.log('최종 시억상자 가져옵니다');
+	console.log('최종 기억상자 가져옵니다');
 	thisForm = '3';
 	commonAjaxCall('/login/selectQn.json',{ordg:'1'}, getFn);
 }
@@ -63,7 +71,7 @@ function getFn(result){
 	$('#dan').text(shuffledArray[0].rightTitle + '    ( '+ shuffledArray[0].history + ')');
 	$('#answer').html(shuffledArray[0].answer);
 	if(shuffledArray[0].questionMessage){
-		$('#questionMessage').html('<br>'+shuffledArray[0].questionMessage);
+		$('#questionMessage').html(''+shuffledArray[0].questionMessage);
 		$('#questionMessage').css('color','black');
 	}else{
 		$('#questionMessage').css('color','white');
@@ -84,19 +92,19 @@ function viewAns(){
 }
 
 function goAllQn(){
-	console.log('초기 시억상자로 보냅니다');
+	console.log('초기 기억상자로 보냅니다');
 	var qstnId = $('#question').val();
 	commonAjaxCall('/login/updateQn.json',{ordg:'3', id: qstnId}, updateResult);
 }
 
 function goSecondQn(){
-	console.log('2단계 시억상자로 보냅니다');
+	console.log('2단계 기억상자로 보냅니다');
 	var qstnId = $('#question').val();
 	commonAjaxCall('/login/updateQn.json',{ordg:'2', id: qstnId}, updateResult);
 }
 
 function goFinalQn(){
-	console.log('최종 시억상자로 보냅니다');
+	console.log('최종 기억상자로 보냅니다');
 	var qstnId = $('#question').val();
 	commonAjaxCall('/login/updateQn.json',{ordg:'1', id: qstnId}, updateResult);
 }
